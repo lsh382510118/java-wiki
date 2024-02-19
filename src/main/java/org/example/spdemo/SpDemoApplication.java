@@ -1,15 +1,21 @@
 package org.example.spdemo;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.core.env.Environment;
 
 import java.util.Arrays;
 
 @SpringBootApplication
 public class SpDemoApplication {
-
+    private static final Logger LOG = LoggerFactory.getLogger(SpDemoApplication.class);
     public static void main(String[] args) {
-        SpringApplication.run(SpDemoApplication.class, Arrays.toString(args));
+        SpringApplication app = new SpringApplication(SpDemoApplication.class);
+        Environment env = app.run(args).getEnvironment();
+        LOG.info("启动成功！！");
+        LOG.info("地址: \thttp://127.0.0.1:{}", env.getProperty("server.port"));
     }
 
 }
